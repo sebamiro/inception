@@ -5,23 +5,27 @@
 networks:
     smironet:
         name: smironet
-        diver: bridge
+        driver: bridge
 
 services:
     nginx:
         container_name: nginx
         build: ./requirements/nginx
-        port:
+        depends_on:
+         - wordpress
+        ports:
          - 443:443
         volumes:
          - wordpress_data:/var/www/html
         restart: always
         networks:
          - smironet
+         
 
     mariadb:
          container_name: mariadb
-         build: ./requirements/mariadb
+         build:
+            context: ./requirements/mariadb
          volumes:
           - mariadb_data:/var/lib/mysql
          restart: always
@@ -33,6 +37,8 @@ services:
     wordpress:
         container_name: wordpress
         build: ./requirements/wordpress
+        depends_on:
+         - mariadb
         volumes:
          - wordpress_data:/var/www/html
         restart: always
