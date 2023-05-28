@@ -11,6 +11,7 @@ services:
     nginx:
         container_name: nginx
         build: ./requirements/nginx
+        image: nginx
         depends_on:
          - wordpress
         ports:
@@ -20,12 +21,13 @@ services:
         restart: always
         networks:
          - smironet
-         
+
 
     mariadb:
          container_name: mariadb
          build:
             context: ./requirements/mariadb
+         image: mariadb
          volumes:
           - mariadb_data:/var/lib/mysql
          restart: always
@@ -37,6 +39,7 @@ services:
     wordpress:
         container_name: wordpress
         build: ./requirements/wordpress
+        image: wordpress
         depends_on:
          - mariadb
         volumes:
