@@ -2,7 +2,7 @@
 #	_Dockerfile:nginx                                                  #
 #//////////////////////////////////////////////////////////////////////#
 
-FROM debian:buster
+FROM debian:10.11
 
 RUN apt-get update && \
 	apt-get -y install nginx \
